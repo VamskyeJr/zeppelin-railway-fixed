@@ -32,8 +32,8 @@ RUN nvm install 16
 RUN touch .env
 RUN echo "API_URL=$API_URL" > .env
 
-# Install dependencies at root level to resolve workspace: protocol
-RUN npm install
+# Install ALL dependencies (including dev) at root level to resolve workspace: protocol
+RUN npm install --include=dev
 
 # Build dashboard
 RUN cd dashboard && npx cross-env NODE_ENV=web webpack --config webpack.config.js

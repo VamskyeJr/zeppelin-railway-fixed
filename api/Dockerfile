@@ -14,9 +14,9 @@ RUN git clone $GIT_REPO . && git switch $GIT_BRANCH
 
 RUN nvm install
 
-# Install dependencies at root level to resolve workspace: protocol
+# Install ALL dependencies (including dev) at root level to resolve workspace: protocol
 WORKDIR /app/ZeppelinBot
-RUN npm install
+RUN npm install --include=dev
 
 WORKDIR /app/ZeppelinBot/backend
 RUN npm run build
