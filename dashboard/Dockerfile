@@ -31,8 +31,12 @@ RUN git clone $GIT_REPO . && git switch $GIT_BRANCH
 RUN nvm install 16
 RUN touch .env
 RUN echo "API_URL=$API_URL" > .env
-RUN cd backend && npm i --production=false
-RUN cd dashboard && npm i --production=false && npx cross-env NODE_ENV=web webpack --config webpack.config.js
+
+# Install dependencies at root level to resolve workspace: protocol
+RUN npm install
+
+# Build dashboard
+RUN cd dashboard && npx cross-env NODE_ENV=web webpack --config webpack.config.js
 
 EXPOSE 80
 #EXPOSE 443
